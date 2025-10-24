@@ -1,17 +1,32 @@
 import db from "../db.server";
 
 export const loader = async ({ request }) => {
-    return { status: "ok" };
+    const { searchParams } = new URL(request.url);
+    const action = searchParams.get("action");
+    const handle = searchParams.get("handle");
+    const customerId = request.headers.get("x-shopify-customer-id") || "test-user";
+    if (action === "gety") {
+        const items = await db.wishlist.findMany({
+            where: { customerId },
+            select: { handle: true },
+        });
+        return items;
+    }
+
+    return Response.json({ status: "ok" });
 };
 
 export const action = async ({ request }) => {
     const { searchParams } = new URL(request.url);
     const action = searchParams.get("action");
     const handle = searchParams.get("handle");
-    const customerId = request.headers.get("x-shopify-customer-id"); // App proxy passes this if logged in
+    const customerId = request.headers.get("x-shopify-customer-id") || "test-user";
 
-    if (!customerId || !handle) {
-        return [{ error: "Missing customer or handle" }, { status: 400 }];
+    if (!customerId || !action) {
+        return new Response(JSON.stringify({ error: "Missing parameters" }), {
+            status: 400,
+            headers: { "Content-Type": "application/json" },
+        });
     }
 
     if (action === "add") {
@@ -20,23 +35,18 @@ export const action = async ({ request }) => {
             create: { customerId, handle },
             update: {},
         });
-        return { success: true };
+        return Response.json({ success: true });
     }
 
     if (action === "remove") {
         await db.wishlist.deleteMany({
             where: { customerId, handle },
         });
-        return { success: true };
+        return Response.json({ success: true });
     }
 
-    if (action === "get") {
-        const items = await db.wishlist.findMany({
-            where: { customerId },
-            select: { handle: true },
-        });
-        return { items };
-    }
-
-    return [{ error: "Invalid action" }, { status: 400 }];
+    return new Response(JSON.stringify({ error: "Invalid action" }), {
+        status: 400,
+        headers: { "Content-Type": "application/json" },
+    });
 };

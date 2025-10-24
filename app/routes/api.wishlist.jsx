@@ -5,7 +5,7 @@ export const loader = async ({ request }) => {
     const action = searchParams.get("action");
     const handle = searchParams.get("handle");
     const customerId = request.headers.get("x-shopify-customer-id") || "test-user";
-    if (action === "gety") {
+    if (action === "get") {
         const items = await db.wishlist.findMany({
             where: { customerId },
             select: { handle: true },

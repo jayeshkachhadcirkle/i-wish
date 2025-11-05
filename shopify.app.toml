@@ -25,3 +25,8 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [ "https://example.com/api/auth" ]
+
+[app_proxy]
+url = "https://overmerrily-nondisposable-warren.ngrok-free.dev/api/wishlist"
+prefix = "apps"
+subpath = "wishlist"

@@ -5,9 +5,18 @@ export const loader = async ({ request }) => {
     const action = searchParams.get("action");
     const handle = searchParams.get("handle");
     const customerId = request.headers.get("x-shopify-customer-id") || "test-user";
+    const store = request.headers.get("x-shopify-store") || "no-store.myshopify.com";
     if (action === "get") {
         const items = await db.wishlist.findMany({
             where: { customerId },
+            select: { handle: true },
+        });
+        return items;
+    }
+
+    if (action === "getall") {
+        const items = await db.wishlist.findMany({
+            where: { customerId, store },
             select: { handle: true },
         });
         return items;
@@ -21,7 +30,7 @@ export const action = async ({ request }) => {
     const action = searchParams.get("action");
     const handle = searchParams.get("handle");
     const customerId = request.headers.get("x-shopify-customer-id") || "test-user";
-
+    const store = request.headers.get("x-shopify-store") || "no-store.myshopify.com";
     if (!customerId || !action) {
         return new Response(JSON.stringify({ error: "Missing parameters" }), {
             status: 400,
@@ -31,8 +40,8 @@ export const action = async ({ request }) => {
 
     if (action === "add") {
         await db.wishlist.upsert({
-            where: { customerId_handle: { customerId, handle } },
-            create: { customerId, handle },
+            where: { customerId_handle_store: { customerId, handle, store } },
+            create: { customerId, handle, store },
             update: {},
         });
         return Response.json({ success: true });
@@ -40,7 +49,7 @@ export const action = async ({ request }) => {
 
     if (action === "remove") {
         await db.wishlist.deleteMany({
-            where: { customerId, handle },
+            where: { customerId, handle, store },
         });
         return Response.json({ success: true });
     }

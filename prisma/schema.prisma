@@ -33,9 +33,10 @@ model Session {
 
 model Wishlist {
   id         Int      @id @default(autoincrement())
+  store      String   @default("no_store")
   customerId String
   handle     String
   createdAt  DateTime @default(now())
 
-  @@unique([customerId, handle])
+  @@unique([customerId, handle, store], name: "customerId_handle_store")
 }

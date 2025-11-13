@@ -27,6 +27,6 @@ scopes = "write_products"
 redirect_urls = [ "https://example.com/api/auth" ]
 
 [app_proxy]
-url = "https://overmerrily-nondisposable-warren.ngrok-free.dev/api/wishlist"
+url = "https://serum-stake-zum-lace.trycloudflare.com/api/wishlist"
 prefix = "apps"
 subpath = "wishlist"

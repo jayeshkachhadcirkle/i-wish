@@ -14,7 +14,7 @@ export const loader = async ({ request }) => {
   };
 
   const getRes = await fetch(
-    "https://overmerrily-nondisposable-warren.ngrok-free.dev/api/wishlist?action=get",
+    "https://serum-stake-zum-lace.trycloudflare.com/api/wishlist?action=get",
     {
       method: "GET",
       headers: headersList
@@ -39,7 +39,7 @@ export const action = async ({ request }) => {
   };
 
   const response = await fetch(
-    "https://overmerrily-nondisposable-warren.ngrok-free.dev/api/wishlist?action=add&handle=bud366",
+    "https://serum-stake-zum-lace.trycloudflare.com/api/wishlist?action=add&handle=bud366",
     {
       method: "POST",
       headers: headersList

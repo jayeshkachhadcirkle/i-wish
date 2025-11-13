@@ -1,0 +1,56 @@
+call for adding item to wishlist(It is Proxied)
+
+fetch("/apps/wishlist?action=add&handle=bud42", {
+    method: "POST",
+    headers: {
+        "Accept": "application/json",
+        "x-shopify-customer-id": "545556454454",
+        "x-shopify-store": "your-shop-domain.myshopify.com"
+    },
+    credentials: "include"
+})
+    .then(res => res.json())
+    .then(data => console.log(data));
+
+
+
+============== raw call ==================
+
+fetch("https://augustdevstore.myshopify.com/apps/wishlist?action=getall", {
+  "headers": {
+    "accept": "application/json",
+    "accept-language": "en-US,en;q=0.9",
+    "cache-control": "no-cache",
+    "pragma": "no-cache",
+    "priority": "u=1, i",
+    "sec-ch-ua": "\"Chromium\";v=\"142\", \"Microsoft Edge\";v=\"142\", \"Not_A Brand\";v=\"99\"",
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": "\"Windows\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin",
+    "x-shopify-customer-id": "545556454454",
+    "x-shopify-store": "augustdevstore.myshopify.com"
+  },
+  "referrer": "https://augustdevstore.myshopify.com/",
+  "body": null,
+  "method": "GET",
+  "mode": "cors",
+  "credentials": "include"
+}).then(res => res.json()).then(data => {
+    console.log(data)
+})
+
+
+
+=============== installation notes ===============
+
+add it in theme.liquid file
+
+window.shopCustomer = {
+    id: `{{ customer.id }}`,
+    email: `{{ customer.email }}`,
+    name: `{{ customer.name }}`,
+};
+
+    

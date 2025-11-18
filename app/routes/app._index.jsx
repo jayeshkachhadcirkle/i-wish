@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useFetcher, useLoaderData } from "react-router";
 import { useAppBridge } from "@shopify/app-bridge-react";
 import { boundary } from "@shopify/shopify-app-react-router/server";
+
 import { authenticate } from "../shopify.server";
 
 // === LOADER ===
@@ -10,11 +11,19 @@ export const loader = async ({ request }) => {
 
   const headersList = {
     "Accept": "application/json",
-    "x-shopify-customer-id": "545556454454"
+    "x-shopify-store": "augustdevstore.myshopify.com"
   };
 
+  // const getRes = await fetch(
+  //   "https://arlington-coaches-desert-male.trycloudflare.com/api/wishlist?action=get",
+  //   {
+  //     method: "GET",
+  //     headers: headersList
+  //   }
+  // );
+
   const getRes = await fetch(
-    "https://serum-stake-zum-lace.trycloudflare.com/api/wishlist?action=get",
+    "https://arlington-coaches-desert-male.trycloudflare.com/api/wishlist?action=getallstore",
     {
       method: "GET",
       headers: headersList
@@ -38,13 +47,13 @@ export const action = async ({ request }) => {
     "x-shopify-customer-id": "545556454454"
   };
 
-  const response = await fetch(
-    "https://serum-stake-zum-lace.trycloudflare.com/api/wishlist?action=add&handle=bud366",
-    {
-      method: "POST",
-      headers: headersList
-    }
-  );
+  // const response = await fetch(
+  //   "https://arlington-coaches-desert-male.trycloudflare.com/api/wishlist?action=add&handle=bud366",
+  //   {
+  //     method: "POST",
+  //     headers: headersList
+  //   }
+  // );
 
   const data = await response.text();
   console.log("Action response:", data);
@@ -62,12 +71,12 @@ export default function Index() {
   const shopify = useAppBridge();
 
   useEffect(() => {
-    console.log("HealthCheck:", loaderData.Test, loaderData.GetData);
+    console.log("Loader Data:", loaderData.Test, loaderData.GetData);
   }, [shopify, loaderData]);
 
-  const handleAddToWishlist = () => {
-    fetcher.submit({}, { method: "POST" });
-  };
+  // const handleAddToWishlist = () => {
+  //   fetcher.submit({}, { method: "POST" });
+  // };
 
   const handleGetData = () => {
     // Trigger the loader again using fetcher.load()
@@ -84,7 +93,7 @@ export default function Index() {
         <s-divider />
 
         {/* Add to Wishlist */}
-        <button onClick={handleAddToWishlist}>Add to Wishlist</button>
+        {/* <button onClick={handleAddToWishlist}>Add to Wishlist</button> */}
         {fetcher.data?.actionResponse && (
           <div>
             <p>Response: {fetcher.data.actionResponse}</p>
@@ -94,7 +103,7 @@ export default function Index() {
         <s-divider />
 
         {/* Get Wishlist Data */}
-        <button onClick={handleGetData}>Get Wishlist Data</button>
+        <button onClick={handleGetData}>Refresh Wishlist Data</button>
 
         {wishlistData && wishlistData.length > 0 ? (
           <div>

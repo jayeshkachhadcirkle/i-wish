@@ -22,6 +22,15 @@ export const loader = async ({ request }) => {
         return items;
     }
 
+    if (action === "getallstore") {
+        const items = await db.wishlist.findMany({
+            where: { store },
+            select: { handle: true, customerId: true, createdAt: true },
+        });
+        return items;
+    }
+
+
     return Response.json({ status: "ok" });
 };
 

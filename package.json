@@ -4,7 +4,7 @@
   "scripts": {
     "build": "react-router build",
     "dev": "shopify app dev",
-    "rok": "shopify app dev --tunnel-url=https://serum-stake-zum-lace.trycloudflare.com:3000",
+    "rok": "shopify app dev --tunnel-url=https://arlington-coaches-desert-male.trycloudflare.com:3000",
     "config:link": "shopify app config link",
     "generate": "shopify app generate",
     "deploy": "shopify app deploy",

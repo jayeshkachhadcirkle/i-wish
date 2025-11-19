@@ -15,7 +15,7 @@ export const loader = async ({ request }) => {
   };
 
   // const getRes = await fetch(
-  //   "https://arlington-coaches-desert-male.trycloudflare.com/api/wishlist?action=get",
+  //   "https://edited-geological-founded-are.trycloudflare.com/api/wishlist?action=get",
   //   {
   //     method: "GET",
   //     headers: headersList
@@ -23,18 +23,50 @@ export const loader = async ({ request }) => {
   // );
 
   const getRes = await fetch(
-    "https://arlington-coaches-desert-male.trycloudflare.com/api/wishlist?action=getallstore",
+    "https://edited-geological-founded-are.trycloudflare.com/api/wishlist?action=getallstore",
     {
       method: "GET",
       headers: headersList
     }
   );
 
+  // Create a new page in Shopify start
+  const createPage = await admin.graphql(`
+  mutation pageCreate($title: String!, $bodyHtml: String!, $handle: String!) {
+    pageCreate(
+      page: {
+        title: $title,
+        body: $bodyHtml,
+        handle: $handle
+      }
+    ) {
+      page {
+        id
+        handle
+      }
+      userErrors {
+        message
+      }
+    }
+  }
+`, {
+    variables: {
+      title: "Wishlist By iWish",
+      bodyHtml: "<div id='wishlist-app'><h1> iWish </h1></div>",
+      handle: "iwishlist-page"
+    }
+  });
+
+  const pageRes = await createPage.json();
+  console.log(pageRes);
+  // Create a new page in Shopify end
+
   const getData = await getRes.json();
 
   return {
     Test: "Test iWish L",
-    GetData: getData
+    GetData: getData,
+    pageData: pageRes
   };
 };
 
@@ -44,18 +76,26 @@ export const action = async ({ request }) => {
 
   const headersList = {
     "Accept": "application/json",
-    "x-shopify-customer-id": "545556454454"
+    "x-shopify-store": "augustdevstore.myshopify.com"
   };
 
   // const response = await fetch(
-  //   "https://arlington-coaches-desert-male.trycloudflare.com/api/wishlist?action=add&handle=bud366",
+  //   "https://edited-geological-founded-are.trycloudflare.com/api/wishlist?action=add&handle=bud366",
   //   {
   //     method: "POST",
   //     headers: headersList
   //   }
   // );
 
-  const data = await response.text();
+  const getRes = await fetch(
+    "https://edited-geological-founded-are.trycloudflare.com/api/wishlist?action=getallstore",
+    {
+      method: "GET",
+      headers: headersList
+    }
+  );
+
+  const data = await getRes.text();
   console.log("Action response:", data);
 
   return {
@@ -71,7 +111,7 @@ export default function Index() {
   const shopify = useAppBridge();
 
   useEffect(() => {
-    console.log("Loader Data:", loaderData.Test, loaderData.GetData);
+    console.log("Loader Data:", loaderData.Test, loaderData.GetData, loaderData.pageData);
   }, [shopify, loaderData]);
 
   // const handleAddToWishlist = () => {
@@ -108,15 +148,29 @@ export default function Index() {
         {wishlistData && wishlistData.length > 0 ? (
           <div>
             <p>Wished Items:</p>
-            <ul>
-              {wishlistData.map((item, index) => (
-                <li key={index}>{item.handle}</li>
-              ))}
-            </ul>
+            <table>
+              <thead>
+                <tr>
+                  <th>Handle</th>
+                  <th>Customer ID</th>
+                  <th>Created At</th>
+                </tr>
+              </thead>
+              <tbody>
+                {wishlistData.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.handle}</td>
+                    <td>{item.customerId}</td>
+                    <td>{item.createdAt}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         ) : (
           <p>No wishlist items found.</p>
         )}
+
       </s-section>
     </s-page>
   );

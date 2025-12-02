@@ -15,7 +15,7 @@ export const loader = async ({ request }) => {
   };
 
   // const getRes = await fetch(
-  //   "https://edited-geological-founded-are.trycloudflare.com/api/wishlist?action=get",
+  //   "https://lock-facilitate-ideal-cooking.trycloudflare.com/api/wishlist?action=get",
   //   {
   //     method: "GET",
   //     headers: headersList
@@ -23,7 +23,7 @@ export const loader = async ({ request }) => {
   // );
 
   const getRes = await fetch(
-    "https://edited-geological-founded-are.trycloudflare.com/api/wishlist?action=getallstore",
+    "https://lock-facilitate-ideal-cooking.trycloudflare.com/api/wishlist?action=getallstore",
     {
       method: "GET",
       headers: headersList
@@ -52,7 +52,7 @@ export const loader = async ({ request }) => {
 `, {
     variables: {
       title: "Wishlist By iWish",
-      bodyHtml: "<div id='wishlist-app'><h1> iWish </h1></div>",
+      bodyHtml: "<div id='wishlist-app'><h1> iWish </h1></div> <script> console.log('Hi, from iWish') </script> ",
       handle: "iwishlist-page"
     }
   });
@@ -80,7 +80,7 @@ export const action = async ({ request }) => {
   };
 
   // const response = await fetch(
-  //   "https://edited-geological-founded-are.trycloudflare.com/api/wishlist?action=add&handle=bud366",
+  //   "https://lock-facilitate-ideal-cooking.trycloudflare.com/api/wishlist?action=add&handle=bud366",
   //   {
   //     method: "POST",
   //     headers: headersList
@@ -88,7 +88,7 @@ export const action = async ({ request }) => {
   // );
 
   const getRes = await fetch(
-    "https://edited-geological-founded-are.trycloudflare.com/api/wishlist?action=getallstore",
+    "https://lock-facilitate-ideal-cooking.trycloudflare.com/api/wishlist?action=getallstore",
     {
       method: "GET",
       headers: headersList

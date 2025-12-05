@@ -27,6 +27,6 @@ scopes = "write_products,write_content,write_online_store_pages"
 redirect_urls = [ "https://example.com/api/auth" ]  
 
 [app_proxy]
-url = "https://lock-facilitate-ideal-cooking.trycloudflare.com/api/wishlist"
+url = "https://indexes-cologne-enquiries-robinson.trycloudflare.com/api/wishlist"
 subpath = "wishlist"
 prefix = "apps"

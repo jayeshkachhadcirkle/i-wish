@@ -15,7 +15,7 @@ export const loader = async ({ request }) => {
   };
 
   // const getRes = await fetch(
-  //   "https://lock-facilitate-ideal-cooking.trycloudflare.com/api/wishlist?action=get",
+  //   "https://indexes-cologne-enquiries-robinson.trycloudflare.com/api/wishlist?action=get",
   //   {
   //     method: "GET",
   //     headers: headersList
@@ -23,7 +23,7 @@ export const loader = async ({ request }) => {
   // );
 
   const getRes = await fetch(
-    "https://lock-facilitate-ideal-cooking.trycloudflare.com/api/wishlist?action=getallstore",
+    "https://indexes-cologne-enquiries-robinson.trycloudflare.com/api/wishlist?action=getallstore",
     {
       method: "GET",
       headers: headersList
@@ -80,7 +80,7 @@ export const action = async ({ request }) => {
   };
 
   // const response = await fetch(
-  //   "https://lock-facilitate-ideal-cooking.trycloudflare.com/api/wishlist?action=add&handle=bud366",
+  //   "https://indexes-cologne-enquiries-robinson.trycloudflare.com/api/wishlist?action=add&handle=bud366",
   //   {
   //     method: "POST",
   //     headers: headersList
@@ -88,7 +88,7 @@ export const action = async ({ request }) => {
   // );
 
   const getRes = await fetch(
-    "https://lock-facilitate-ideal-cooking.trycloudflare.com/api/wishlist?action=getallstore",
+    "https://indexes-cologne-enquiries-robinson.trycloudflare.com/api/wishlist?action=getallstore",
     {
       method: "GET",
       headers: headersList

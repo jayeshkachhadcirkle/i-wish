@@ -15,7 +15,7 @@ export const loader = async ({ request }) => {
   };
 
   // const getRes = await fetch(
-  //   "https://arena-territories-sbjct-exp.trycloudflare.com/api/wishlist?action=get",
+  //   "https://manor-civilian-gnu-comfort.trycloudflare.com/api/wishlist?action=get",
   //   {
   //     method: "GET",
   //     headers: headersList
@@ -23,7 +23,7 @@ export const loader = async ({ request }) => {
   // );
 
   const getRes = await fetch(
-    "https://arena-territories-sbjct-exp.trycloudflare.com/api/wishlist?action=getallstore",
+    "https://manor-civilian-gnu-comfort.trycloudflare.com/api/wishlist?action=getallstore",
     {
       method: "GET",
       headers: headersList
@@ -80,7 +80,7 @@ export const action = async ({ request }) => {
   };
 
   // const response = await fetch(
-  //   "https://arena-territories-sbjct-exp.trycloudflare.com/api/wishlist?action=add&handle=bud366",
+  //   "https://manor-civilian-gnu-comfort.trycloudflare.com/api/wishlist?action=add&handle=bud366",
   //   {
   //     method: "POST",
   //     headers: headersList
@@ -88,7 +88,7 @@ export const action = async ({ request }) => {
   // );
 
   const getRes = await fetch(
-    "https://arena-territories-sbjct-exp.trycloudflare.com/api/wishlist?action=getallstore",
+    "https://manor-civilian-gnu-comfort.trycloudflare.com/api/wishlist?action=getallstore",
     {
       method: "GET",
       headers: headersList

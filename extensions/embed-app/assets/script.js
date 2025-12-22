@@ -29,15 +29,13 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 });
 
+let path = window.location.pathname;
+let fromWishlist = false;
 
-
-// find if template variable is declared in global scope
-
-if (typeof template === 'undefined') {
-    let template = "not set";
+if (path.includes('iwishlist-page')) {
+    fromWishlist = true;
 }
 
-// const template = "not set"
 
 class MyLike extends HTMLElement {
     constructor() {
@@ -62,7 +60,7 @@ class MyLike extends HTMLElement {
             if (liked.includes(handle)) {
                 path.setAttribute('fill', 'black');
                 liked = liked.filter(h => h !== handle);
-                if (template == 'page.wishlist') {
+                if (fromWishlist) {
                     pro.remove();
                 }
                 this.removeToWish(handle);
@@ -95,13 +93,13 @@ class MyLike extends HTMLElement {
 
     addToWish(handle) {
         if (window.shopCustomer.id != '') {
-            fetch(`/apps/wishlist?action=add&handle=${handle}`, {
+            fetch(`/apps/wishlist?action=add`, {
                 "headers": {
                     "accept": "application/json",
                     "x-shopify-customer-id": window.shopCustomer.id || 'no-customer',
                     "x-shopify-store": Shopify.shop
                 },
-                "body": null,
+                "body": JSON.stringify({ handle: handle }),
                 "method": "POST",
                 "credentials": "include"
             }).then(res => res.text()).then(data => {
@@ -114,13 +112,13 @@ class MyLike extends HTMLElement {
 
     removeToWish(handle) {
         if (window.shopCustomer.id != '') {
-            fetch(`/apps/wishlist?action=remove&handle=${handle}`, {
+            fetch(`/apps/wishlist?action=remove`, {
                 "headers": {
                     "accept": "application/json",
                     "x-shopify-customer-id": window.shopCustomer.id || 'no-customer',
                     "x-shopify-store": Shopify.shop
                 },
-                "body": null,
+                "body": JSON.stringify({ handle: handle }),
                 "method": "POST",
                 "credentials": "include"
             }).then(res => res.json()).then(data => {

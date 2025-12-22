@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // script for wishlist load on page load
     document.getElementById('wish-count').innerText = localStorage.getItem("likedProducts") && JSON.parse(localStorage.getItem("likedProducts")).length > 0 ? JSON.parse(localStorage.getItem("likedProducts")).length : '';
     if (window.shopCustomer.id != '') {
-        fetch(`/apps/wishlist?action=getall`, {
+        fetch(`/apps/iwish/wishlist?action=getall`, {
             method: "GET",
             headers: {
                 "Accept": "application/json",
@@ -32,6 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
 let path = window.location.pathname;
 let fromWishlist = false;
 
+// can check if the closest PArent is a Wishlist Container
 if (path.includes('iwishlist-page')) {
     fromWishlist = true;
 }
@@ -93,7 +94,7 @@ class MyLike extends HTMLElement {
 
     addToWish(handle) {
         if (window.shopCustomer.id != '') {
-            fetch(`/apps/wishlist?action=add`, {
+            fetch(`/apps/iwish/wishlist?action=add`, {
                 "headers": {
                     "accept": "application/json",
                     "x-shopify-customer-id": window.shopCustomer.id || 'no-customer',
@@ -112,7 +113,7 @@ class MyLike extends HTMLElement {
 
     removeToWish(handle) {
         if (window.shopCustomer.id != '') {
-            fetch(`/apps/wishlist?action=remove`, {
+            fetch(`/apps/iwish/wishlist?action=remove`, {
                 "headers": {
                     "accept": "application/json",
                     "x-shopify-customer-id": window.shopCustomer.id || 'no-customer',

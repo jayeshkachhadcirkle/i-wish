@@ -54,3 +54,4 @@ window.shopCustomer = {
 };
 
     
+scopes = "write_products,write_content,write_online_store_pages,write_themes,read_themes"
